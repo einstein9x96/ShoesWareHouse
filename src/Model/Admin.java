@@ -39,12 +39,21 @@ public class Admin {
     public void setPassword(String pass) {
         this.password = pass;
     }
-    
+
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void displayInfo() {
+        System.out.println("------------------------");
+        System.out.println("Tên người dùng: " + this.ten);
+        System.out.println("Tài khoản đăng nhập: " + this.user_name);
+        System.out.println("Mật khẩu: " + this.password);
+        System.out.println("Quyền : " + this.role);
+        System.out.println("------------------------");
     }
 }

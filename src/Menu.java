@@ -1,7 +1,5 @@
 
-import Controller.StockController;
 import Model.Admin;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
@@ -14,7 +12,7 @@ public class Menu {
         System.out.println("0. Đăng xuất");
     }
 
-    public void getMenu(Admin user) throws SQLException {
+    public void getMenu(Admin user) {
         Scanner sc = new Scanner(System.in);
         System.out.println("--------- Quản lý kho hàng ---------");
         System.out.println("Xin chào, " + user.getTen());
@@ -30,8 +28,7 @@ public class Menu {
                         
                         break;
                     case 2:
-                        StockController st = new StockController();
-                        st.main();
+                        
                         break;
                     case 3:
                         

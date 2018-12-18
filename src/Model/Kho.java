@@ -29,13 +29,4 @@ public class Kho {
     public void setDiaDiem(String diadiem) {
         this.dia_diem = diadiem;
     }
-    public Kho(int makho, String tenkho, String điaiem) {
-        this.ma_kho = makho;
-        this.ten_kho = tenkho;
-        this.dia_diem = điaiem;
-    }
-    public Kho(){
-        
-    }
-    
 }
