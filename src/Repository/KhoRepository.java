@@ -37,12 +37,11 @@ public class KhoRepository {
     }
 
     public boolean insert(Kho kho) throws SQLException {
-        String sql = "INSERT INTO [Kho] VALUES(?,?,?)";
+        String sql = "INSERT INTO [Kho] VALUES(?,?)";
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, kho.getMaKho());
-            stm.setString(2, kho.getTenKho());
-            stm.setString(3, kho.getDiaDiem());
+            stm.setString(1, kho.getTenKho());
+            stm.setString(2, kho.getDiaDiem());
             is = stm.executeUpdate() > 0;
         }
         dbconn.Close();
@@ -50,12 +49,12 @@ public class KhoRepository {
     }
 
     public boolean update(Kho kho) throws SQLException {
-        String sql = "UPDATE [Kho] SET ma_kho = ? , ten_kho = ? , dia_diem = ?";
+        String sql = "UPDATE [Kho] SET  ten_kho = ? , dia_diem = ? Where ma_kho = ?";
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, kho.getMaKho());
-            stm.setString(2, kho.getTenKho());
-            stm.setString(3, kho.getDiaDiem());
+            stm.setString(1, kho.getTenKho());
+            stm.setString(2, kho.getDiaDiem());
+            stm.setInt(3, kho.getMaKho());
             is = stm.executeUpdate() > 0;
         }
         dbconn.Close();
