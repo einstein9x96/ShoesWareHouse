@@ -26,7 +26,7 @@ public class StockController {
 
     public void main() throws SQLException {
 
-        Scanner in = new Scanner(System.in);
+       
         boolean quit = false;
         int menuItem = -1;
         do {
@@ -100,7 +100,6 @@ public class StockController {
         return Name;
     }
 
-    //Xem danh sách người dùng.
     public void Stocklist(ArrayList<Kho> stockList) throws SQLException {
 
         if (stockList.size() <= 0) {
@@ -143,7 +142,7 @@ public class StockController {
         }
     }
 
-//Thêm người dùng.
+
     public void createStock() throws SQLException {
 
         //1: regex tên kho từ 3-30 kí tự        
@@ -159,18 +158,7 @@ public class StockController {
                 tenkho = ChuanHoaChuoi(tenkho);
             }
         } while (validStockName == false);
-//        //4:  mã kho > 5 ki tự
-//        System.out.print("Mã kho hàng : ");
-//        boolean validStockId;
-//        String makho = "";
-//        do {
-//            makho = scanner.nextLine();
-//             //"^[A-Za-z\\s]{5,30}$"
-//             validStockId = makho.matches("[0-9]{3,10}");
-//            if (validStockId == false) {
-//                System.out.print("Mã kho gồm số từ 3 đến 10 kí tự ");
-//            } 
-//        } while (validStockId == false);
+
 
         //7: regex dia chi, tu 10-200 ki tu
         System.out.print("Địa chỉ : ");
