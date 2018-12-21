@@ -42,6 +42,7 @@ public class StockController {
                 case 1:
                     list = _khoRepository.getAll();
                     Stocklist(list);
+                    
                     scanner.nextLine();
                     break;
                 case 2:
@@ -62,6 +63,7 @@ public class StockController {
                     break;
                 case 0:
                     quit = true;
+                    dataconn.Close();
                     break;
                 default:
                     System.out.print("Xin mời nhập lại ,hãy nhập từ 0 đến 5 : ");
@@ -107,7 +109,7 @@ public class StockController {
             System.out.print("Hiện tại không có kho hàng nào đề hiện thị");
         } else {
             System.out.println("Danh sách kho hàng : ");
-           int count = 0;
+           int count = 1;
             displayName();
             for (Kho stock1 : stockList) {
                 System.out.printf("%-20.20s%-20.20s%-20.20s%-20.20s\n", count, stock1.getMaKho(), stock1.getTenKho(), stock1.getDiaDiem());

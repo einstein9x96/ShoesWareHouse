@@ -36,13 +36,13 @@ public class AdminRepository {
         }
         return listAdmin;
     }
-
+    
     public Admin getAdmin(String username, String password) throws SQLException {
 
         String sql = "Select * from [Users] where user_name = '" + username + "' and password = '" + password + "'";
         Admin user = new Admin();
         ResultSet rs = dbconn.getData(sql);
-        if (rs == null) {
+        if(rs == null){
             return user;
         }
         while (rs.next()) {
@@ -54,13 +54,41 @@ public class AdminRepository {
         }
         return user;
     }
+    
+    public boolean insert(Admin user) throws SQLException {
+        String sql = "INSERT INTO [Admin] VALUES(?,?,?,?)";
+        boolean is;
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setString(1, user.getTen());
+            stm.setString(2, user.getUserName());
+            stm.setString(3, user.getPassword());
+            stm.setString(4, user.getRole());
+            is = stm.executeUpdate() > 0;
+        }
+        dbconn.Close();
+        return is;
+    }
+
+    public boolean update(Admin user) throws SQLException {
+        String sql = "UPDATE [Admin] SET ten = ? , user_name = ? , password = ? , role = ? where id = " + user.getId();
+        boolean is;
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setString(1, user.getTen());
+            stm.setString(2, user.getUserName());
+            stm.setString(3, user.getPassword());
+            stm.setString(4, user.getRole());
+            is = stm.executeUpdate() > 0;
+        }
+        dbconn.Close();
+        return is;
+    }
 
     public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM [Users] where id = " + id;
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
             is = stm.executeUpdate() > 0;
-        }
+}
         dbconn.Close();
         return is;
     }

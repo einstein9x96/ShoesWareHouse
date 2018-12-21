@@ -1,5 +1,8 @@
 
+import Controller.StockController;
+import Controller.UserController;
 import Model.Admin;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
@@ -12,12 +15,13 @@ public class Menu {
         System.out.println("0. Đăng xuất");
     }
 
-    public void getMenu(Admin user) {
+    public void getMenu(Admin user) throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("--------- Quản lý kho hàng ---------");
         System.out.println("Xin chào, " + user.getTen());
-        if (user.getRole() == "sa") {
-            int choice = 0; 
+        if (user.getRole().equals("sa")) {
+            int choice;
+            boolean logout = false;
             do{
                 saMenu();
                 System.out.println("Vui lòng chọn 1 chức năng: ");
@@ -25,10 +29,12 @@ public class Menu {
                 
                 switch (choice) {
                     case 1:
-                        
+                        UserController userController = new UserController();
+                        userController.main();
                         break;
                     case 2:
-                        
+                        StockController st = new StockController();
+                        st.main();
                         break;
                     case 3:
                         
@@ -36,18 +42,19 @@ public class Menu {
                     case 4:
                         
                         break;
+                    case 0:
+                        System.out.println("Đăng xuất thành công");
+                        logout = true;
+                        break;
                     default:
                         System.out.println("Chức năng bạn chọn không đúng, vui lòng chọn lại");
                         break;
                 }
-            } while (choice != 0);
+            } while (!logout);
         } else {
             thukhoMenu();
             System.out.println("Vui lòng chọn 1 chức năng: ");
         }
-
-        
-
     }
 
     public void thukhoMenu() {
