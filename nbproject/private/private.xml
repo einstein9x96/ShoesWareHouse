@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Model/Admin.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Menu.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Controller/StockController.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Repository/KhoRepository.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/ShoesWareHouse.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Model/Kho.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Function/LoginApp.java</file>
-            <file>file:/E:/projectInClass/javaProject/ShoesWareHouse/src/Model/ThuKho.java</file>
+            <file>file:/D:/eproject/ShoesWareHouse/src/Repository/NhomHangRepository.java</file>
+            <file>file:/D:/eproject/ShoesWareHouse/src/Controller/StockController.java</file>
+            <file>file:/D:/eproject/ShoesWareHouse/src/Model/NhomHang.java</file>
+            <file>file:/D:/eproject/ShoesWareHouse/src/Controller/GroupGoodsController.java</file>
         </group>
     </open-files>
 </project-private>
