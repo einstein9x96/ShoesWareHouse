@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HangHoaRepository {
@@ -31,41 +32,29 @@ public class HangHoaRepository {
             HH.setDVT(rs.getString("dvt"));
             listHH.add(HH);
         }
-        // Đóng Connect
-       
         return listHH;
     }
 
     public boolean insert(HangHoa HH) throws SQLException {
-        String sql = "INSERT INTO [HangHoa] VALUES(?,?,?,?)";
-        boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, HH.getMaHang());
-            stm.setInt(2, HH.getMaNhom());
-            stm.setString(3, HH.getTenHang());
-            stm.setString(4, HH.getDVT());
-            is = stm.executeUpdate() > 0;
-        }
+        Statement stm = conn.createStatement();
+        String sql = "INSERT INTO [HangHoa] (ma_nhom, ten_hang, dvt) "
+                + "VALUES("+ HH.getMaNhom() +",'"+ HH.getTenHang() +"','"+ HH.getDVT() +"')";
+        boolean is = stm.executeUpdate(sql) > 0;
         dbconn.Close();
         return is;
     }
 
     public boolean update(HangHoa HH) throws SQLException {
-        String sql = "UPDATE [HangHoa] SET ma_hang = ? , ma_nhom = ? , ten_hang = ? , dvt = ? ";
-        boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, HH.getMaHang());
-            stm.setInt(2, HH.getMaNhom());
-            stm.setString(3, HH.getTenHang());
-            stm.setString(4, HH.getDVT());
-            is = stm.executeUpdate() > 0;
-        }
+        Statement stm = conn.createStatement();
+        String sql = "UPDATE [HangHoa] SET ma_nhom = "+ HH.getMaNhom() +" , ten_hang = '"+ HH.getTenHang() +"' , "
+                + "dvt = '"+ HH.getDVT() +"' where ma_hang = " + HH.getMaHang();
+        boolean is = stm.executeUpdate(sql) > 0;
         dbconn.Close();
         return is;
     }
 
     public boolean delete(int id) throws SQLException {
-        String sql = "DELETE FROM [HangHoa] where id = " + id;
+        String sql = "DELETE FROM [HangHoa] where ma_hang = " + id;
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
             is = stm.executeUpdate() > 0;
@@ -76,7 +65,7 @@ public class HangHoaRepository {
 
     public HangHoa getbyId(int id) throws SQLException {
         
-        String sql = "Select * from [HangHoa] where id = " + id ;
+        String sql = "Select * from [HangHoa] where ma_hang = " + id ;
         HangHoa HH = new HangHoa();
         ResultSet rs = dbconn.getData(sql);
         while (rs.next()) {

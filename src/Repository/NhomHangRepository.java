@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class NhomHangRepository {
@@ -36,31 +37,24 @@ public class NhomHangRepository {
     }
 
     public boolean insert(NhomHang NH) throws SQLException {
-        String sql = "INSERT INTO [NhomHang] VALUES(?,?)";
+        Statement stm = conn.createStatement();
+        String sql = "INSERT INTO [NhomHang] (ten_nhom) VALUES('"+ NH.getTenNhom() +"')";
         boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, NH.getMaNhom());
-            stm.setString(2, NH.getTenNhom());
-            is = stm.executeUpdate() > 0;
-        }
+        is = stm.executeUpdate(sql) > 0;
         dbconn.Close();
         return is;
     }
 
-    public boolean update(NhomHang NH) throws SQLException {
-        String sql = "UPDATE [NhomHang] SET ma_nhom = ? , ten_nhom = ?";
-        boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, NH.getMaNhom());
-            stm.setString(2, NH.getTenNhom());
-            is = stm.executeUpdate() > 0;
-        }
-        dbconn.Close();
+    public boolean update(NhomHang group) throws SQLException {
+         Statement stm = conn.createStatement();
+        String sql = "UPDATE [NhomHang] SET ten_nhom = '"+ group.getTenNhom() +"' where ma_nhom = " + group.getMaNhom();
+        boolean is = stm.executeUpdate(sql) > 0;
+//        dbconn.Close();
         return is;
     }
 
     public boolean delete(int id) throws SQLException {
-        String sql = "DELETE FROM [NhomHang] where id = " + id;
+        String sql = "DELETE FROM [NhomHang] where ma_nhom = " + id;
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
             is = stm.executeUpdate() > 0;
@@ -71,12 +65,12 @@ public class NhomHangRepository {
 
     public NhomHang getbyId(int id) throws SQLException {
 
-        String sql = "Select * from [NhomHang] where id = " + id;
+        String sql = "Select * from [NhomHang] where ma_nhom = " + id;
         NhomHang NH = new NhomHang();
         ResultSet rs = dbconn.getData(sql);
         while (rs.next()) {
-            NH.setMaNhom(rs.getInt("ma_NH"));
-            NH.setTenNhom(rs.getString("ten_NH"));
+            NH.setMaNhom(rs.getInt("ma_nhom"));
+            NH.setTenNhom(rs.getString("ten_nhom"));
         }
         return NH;
     }

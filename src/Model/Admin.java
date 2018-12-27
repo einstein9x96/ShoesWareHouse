@@ -7,6 +7,7 @@ public class Admin {
     private String user_name;
     private String password;
     private String role;
+    private int ma_kho;
 
     public int getId() {
         return id;
@@ -47,13 +48,27 @@ public class Admin {
     public void setRole(String role) {
         this.role = role;
     }
+    
+    public int getMaKho() {
+        return ma_kho;
+    }
+
+    public void setMaKho(int makho) {
+        this.ma_kho = makho;
+    }
 
     public void displayInfo() {
+        String role;
+        if (this.role.equals("sa")) {
+            role = "Admin";
+        } else {
+            role = "Thủ kho";
+        }
         System.out.println("------------------------");
         System.out.println("Tên người dùng: " + this.ten);
         System.out.println("Tài khoản đăng nhập: " + this.user_name);
         System.out.println("Mật khẩu: " + this.password);
-        System.out.println("Quyền : " + this.role);
+        System.out.println("Quyền : " + role);
         System.out.println("------------------------");
     }
 }

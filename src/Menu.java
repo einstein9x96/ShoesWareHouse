@@ -1,4 +1,5 @@
-
+import Controller.CategoriesController;
+import Controller.GroupGoodsController;
 import Controller.StockController;
 import Controller.UserController;
 import Model.Admin;
@@ -11,7 +12,7 @@ public class Menu {
         System.out.println("1. Quản lý thủ kho");
         System.out.println("2. Quản lý kho");
         System.out.println("3. Quản lý hàng hóa");
-        System.out.println("4. Quản lý đơn hàng");
+        System.out.println("4. Quản lý nhóm hàng");
         System.out.println("0. Đăng xuất");
     }
 
@@ -37,10 +38,12 @@ public class Menu {
                         st.main();
                         break;
                     case 3:
-                        
+                        CategoriesController category = new CategoriesController();
+                        category.main();
                         break;
                     case 4:
-                        
+                        GroupGoodsController group = new GroupGoodsController();
+                        group.main();
                         break;
                     case 0:
                         System.out.println("Đăng xuất thành công");

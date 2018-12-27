@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import DataConnect.DataConnection;
@@ -12,37 +7,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author TranKhai
- */
 public class StockController {
 
     public Scanner scanner = new Scanner(System.in);
-    DataConnection dataconn = new DataConnection();
-    KhoRepository _khoRepository = new KhoRepository(dataconn);
-    ArrayList<Kho> list;
-    
+//    DataConnection dataconn = new DataConnection();
+//    KhoRepository _khoRepository = new KhoRepository(dataconn);
+//    ArrayList<Kho> list;
 
     public void main() throws SQLException {
 
-        Scanner in = new Scanner(System.in);
         boolean quit = false;
-        int menuItem = -1;
+        int menuItem;
         do {
             System.out.println("---------Quản Lý Kho---------");
             menu();
             System.out.print("Nhập vào lựa chọn của bạn: ");
             try {
                 menuItem = Integer.parseInt(scanner.nextLine());
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
                 menuItem = 20;
             }
             switch (menuItem) {
                 case 1:
-                    list = _khoRepository.getAll();
-                    Stocklist(list);
-                    
+                    Stocklist();
                     scanner.nextLine();
                     break;
                 case 2:
@@ -63,7 +50,7 @@ public class StockController {
                     break;
                 case 0:
                     quit = true;
-                    dataconn.Close();
+//                    dataconn.Close();
                     break;
                 default:
                     System.out.print("Xin mời nhập lại ,hãy nhập từ 0 đến 5 : ");
@@ -91,48 +78,54 @@ public class StockController {
         NameInput = NameInput.toLowerCase();
         String[] arr = NameInput.split(" ");
         for (String s : arr) {
-            if (!s.equals("") && !s.equals(null)) {
+            if (!s.isEmpty()) {
                 Name += String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1) + " ";
             }
         }
 
-        if (!Name.equals("") && !Name.equals(null)) {
+        if (!Name.isEmpty()) {
             Name = Name.substring(0, Name.length() - 1);
         }
         return Name;
     }
 
-    //Xem danh sách người dùng.
-    public void Stocklist(ArrayList<Kho> stockList) throws SQLException {
-
-        if (stockList.size() <= 0) {
+    public void displayList(ArrayList<Kho> list) {
+        if (list.size() <= 0) {
             System.out.print("Hiện tại không có kho hàng nào đề hiện thị");
         } else {
             System.out.println("Danh sách kho hàng : ");
-           int count = 1;
+            int count = 1;
             displayName();
-            for (Kho stock1 : stockList) {
+            for (Kho stock1 : list) {
                 System.out.printf("%-20.20s%-20.20s%-20.20s%-20.20s\n", count, stock1.getMaKho(), stock1.getTenKho(), stock1.getDiaDiem());
                 count++;
             }
         }
-
     }
 
-    // Xóa người dùng.
-    public void deleteStock() throws SQLException {
+    public void Stocklist() throws SQLException {
+        DataConnection dataconn = new DataConnection();
+        KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ArrayList<Kho> stockList = _khoRepository.getAll();
 
-        list = _khoRepository.getAll();
-        Stocklist(list);
+        displayList(stockList);
+    }
+
+    public void deleteStock() throws SQLException {
+        DataConnection dataconn = new DataConnection();
+        KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ArrayList<Kho> stockList = _khoRepository.getAll();
+
+        displayList(stockList);
         System.out.print("Chọn kho muốn xóa theo mã kho ");
 
-        int validSelectStock = 0;
+        int validSelectStock;
         int id = 0;
         do {
             try {
                 id = Integer.parseInt(scanner.nextLine());
                 validSelectStock = 0;
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
                 validSelectStock = 1;
                 System.out.print("Vui lòng nhập số vào : ");
             }
@@ -145,10 +138,11 @@ public class StockController {
         }
     }
 
-//Thêm người dùng.
     public void createStock() throws SQLException {
+        DataConnection dataconn = new DataConnection();
+        KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ArrayList<Kho> stockList = _khoRepository.getAll();
 
-        //1: regex tên kho từ 3-30 kí tự        
         System.out.print("Tên kho hàng : ");
         boolean validStockName;
         String tenkho = "";
@@ -161,20 +155,7 @@ public class StockController {
                 tenkho = ChuanHoaChuoi(tenkho);
             }
         } while (validStockName == false);
-//        //4:  mã kho > 5 ki tự
-//        System.out.print("Mã kho hàng : ");
-//        boolean validStockId;
-//        String makho = "";
-//        do {
-//            makho = scanner.nextLine();
-//             //"^[A-Za-z\\s]{5,30}$"
-//             validStockId = makho.matches("[0-9]{3,10}");
-//            if (validStockId == false) {
-//                System.out.print("Mã kho gồm số từ 3 đến 10 kí tự ");
-//            } 
-//        } while (validStockId == false);
 
-        //7: regex dia chi, tu 10-200 ki tu
         System.out.print("Địa chỉ : ");
         boolean validAddress;
         String diadiem = "";
@@ -197,8 +178,10 @@ public class StockController {
     //Sửa thông tin người dùng 
 
     public void editStock() throws SQLException {
-        list = _khoRepository.getAll();
-        Stocklist(list);
+        DataConnection dataconn = new DataConnection();
+        KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ArrayList<Kho> stockList = _khoRepository.getAll();
+        displayList(stockList);
 
         System.out.print("Chọn kho muốn sửa thông tin theo mã kho : ");
 
@@ -252,22 +235,23 @@ public class StockController {
     //Tìm kiếm thông tin người dùng 
 
     public void searchByName() throws SQLException {
-
-        list = _khoRepository.getAll();
+        DataConnection dataconn = new DataConnection();
+        KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ArrayList<Kho> stockList = _khoRepository.getAll();
 
         ArrayList<Kho> listSearch = new ArrayList<>();
-        if (list.size() <= 0) {
+        if (stockList.size() <= 0) {
             System.out.println("Hiện tại không có kho hàng nào");
         } else {
             System.out.print("Nhập tên kho hàng : ");
             String name = scanner.nextLine();
-            for (Kho stock : list) {
+            for (Kho stock : stockList) {
                 if ((stock.getTenKho().toUpperCase()).contains(name.toUpperCase())) {
                     listSearch.add(stock);
                 }
             }
             if (listSearch.size() > 0) {
-                Stocklist(listSearch);
+                displayList(listSearch);
             } else {
                 System.out.println("Không tìm thấy kho hàng phù hợp.");
             }

@@ -38,4 +38,13 @@ public class HangHoa {
     public void setDVT(String dvt) {
         this.dvt = dvt;
     }
+    public HangHoa (){
+        
+    }
+    public HangHoa (int mahang, int manhom, String tenhang, String dvt){
+        this.ma_hang = mahang;
+        this.ma_nhom = manhom;
+        this.ten_hang = tenhang;
+        this.dvt = dvt;
+    }
 }
