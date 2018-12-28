@@ -9,19 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ChiTietKhoRepository {
+
     DataConnection dbconn;
     Connection conn;
-    
-    public ChiTietKhoRepository(DataConnection dconn ){
+
+    public ChiTietKhoRepository(DataConnection dconn) {
         this.dbconn = dconn;
         this.conn = dconn.getConnectionToMSSQL();
     }
-    
+
     ArrayList<ChiTietKho> listCTK = new ArrayList<>();
-    
-    public ArrayList<ChiTietKho> getAll() throws SQLException{
+
+    public ArrayList<ChiTietKho> getAll() throws SQLException {
         String sql = "Select * from [ChiTietKho]";
-        
+
         ResultSet rs = dbconn.getData(sql);
         while (rs.next()) {
             ChiTietKho CTK = new ChiTietKho();
@@ -32,18 +33,17 @@ public class ChiTietKhoRepository {
             listCTK.add(CTK);
         }
         // Đóng Connect
-       
+
         return listCTK;
     }
 
     public boolean insert(ChiTietKho CTK) throws SQLException {
-        String sql = "INSERT INTO [ChiTietKho] VALUES(?,?,?,?)";
+        String sql = "INSERT INTO [ChiTietKho] VALUES(?,?,?)";
         boolean is;
         try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, CTK.getId());
-            stm.setInt(2, CTK.getMaKho());
-            stm.setInt(3, CTK.getMaHang());
-            stm.setInt(4, CTK.getSL());
+            stm.setInt(1, CTK.getMaKho());
+            stm.setInt(2, CTK.getMaHang());
+            stm.setInt(3, CTK.getSL());
             is = stm.executeUpdate() > 0;
         }
         dbconn.Close();
@@ -75,8 +75,8 @@ public class ChiTietKhoRepository {
     }
 
     public ChiTietKho getbyId(int id) throws SQLException {
-        
-        String sql = "Select * from [ChiTietKho] where id = " + id ;
+
+        String sql = "Select * from [ChiTietKho] where id = " + id;
         ChiTietKho ctk = new ChiTietKho();
         ResultSet rs = dbconn.getData(sql);
         while (rs.next()) {
@@ -86,5 +86,35 @@ public class ChiTietKhoRepository {
             ctk.setSL(rs.getInt("so_luong"));
         }
         return ctk;
+    }
+
+    public ArrayList<ChiTietKho> getbyStockId(int id) throws SQLException {
+
+        String sql = "Select * from [ChiTietKho] where ma_kho = " + id;
+        ArrayList<ChiTietKho> a = new ArrayList<ChiTietKho>();
+        ResultSet rs = dbconn.getData(sql);
+        while (rs.next()) {
+            ChiTietKho ctk = new ChiTietKho();
+            ctk.setId(rs.getInt("id"));
+            ctk.setMakho(rs.getInt("ma_kho"));
+            ctk.setMaHang(rs.getInt("ma_hang"));
+            ctk.setSL(rs.getInt("so_luong"));
+            a.add(ctk);
+        }
+        return a;
+    }
+
+    public ChiTietKho checkExist(int id_sua, int id) throws SQLException {
+        String sql = "Select * from [ChiTietKho] where ma_kho = " + id + " and id = " + id_sua;
+        ResultSet rs = dbconn.getData(sql);
+         ChiTietKho a = new ChiTietKho();
+        while (rs.next()) {
+            a.setId(rs.getInt("id"));
+            a.setMakho(rs.getInt("ma_kho"));
+            a.setMaHang(rs.getInt("ma_hang"));
+            a.setSL(rs.getInt("so_luong"));
+            
+        }
+        return a;
     }
 }

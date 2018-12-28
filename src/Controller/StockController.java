@@ -100,6 +100,7 @@ public class StockController {
                 System.out.printf("%-20.20s%-20.20s%-20.20s%-20.20s\n", count, stock1.getMaKho(), stock1.getTenKho(), stock1.getDiaDiem());
                 count++;
             }
+
         }
     }
 
@@ -109,6 +110,23 @@ public class StockController {
         ArrayList<Kho> stockList = _khoRepository.getAll();
 
         displayList(stockList);
+        System.out.println("ban co muon xem chi tiet kho(y/n)");
+        String check = scanner.nextLine();
+        if (check.equalsIgnoreCase("y")) {
+            System.out.println("Nhap ma kho ban muon xem chi tiet : ");
+            int makhochitiet=0;
+            boolean test = true;
+            do {
+                try {
+                    makhochitiet = Integer.parseInt(scanner.nextLine());
+                    test = false;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Vui long nhap ma kho chinh xac");
+                }
+            } while (test == true);
+            DetailStockController dst = new DetailStockController();
+            dst.main(makhochitiet);
+        }
     }
 
     public void deleteStock() throws SQLException {
@@ -174,8 +192,6 @@ public class StockController {
             System.out.println("ID vừa nhập không tồn tại");
         }
     }
-//
-    //Sửa thông tin người dùng 
 
     public void editStock() throws SQLException {
         DataConnection dataconn = new DataConnection();
@@ -232,7 +248,6 @@ public class StockController {
         }
 
     }
-    //Tìm kiếm thông tin người dùng 
 
     public void searchByName() throws SQLException {
         DataConnection dataconn = new DataConnection();
