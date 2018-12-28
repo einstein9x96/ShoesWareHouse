@@ -62,13 +62,13 @@ public class Admin {
         if (this.role.equals("sa")) {
             role = "Admin";
         } else {
-            role = "Thủ kho";
+            role = "Thu kho";
         }
         System.out.println("------------------------");
-        System.out.println("Tên người dùng: " + this.ten);
-        System.out.println("Tài khoản đăng nhập: " + this.user_name);
-        System.out.println("Mật khẩu: " + this.password);
-        System.out.println("Quyền : " + role);
+        System.out.println("Ten nguoi dung: " + this.ten);
+        System.out.println("Tai khoan: " + this.user_name);
+        System.out.println("Mat khau: " + this.password);
+        System.out.println("Quyen : " + role);
         System.out.println("------------------------");
     }
 }

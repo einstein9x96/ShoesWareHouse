@@ -27,7 +27,7 @@ public class OrdersController {
         int menuItem;
         do {
             menu();
-            System.out.print("Nhập vào lựa chọn của bạn: ");
+            System.out.print("Nhap vao lua chon: ");
             try {
                 menuItem = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {

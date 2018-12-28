@@ -21,7 +21,7 @@ public class GroupGoodsController {
         int menuItem;
         do {
             menu();
-            System.out.print("Nhập vào lựa chọn của bạn: ");
+            System.out.print("Nhap vao lua chon cua ban: ");
             try {
                 menuItem = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
@@ -30,34 +30,29 @@ public class GroupGoodsController {
             switch (menuItem) {
                 case 1:
                     GroupGoodslist();
-                    System.out.println("Ấn Enter để quay lại");
                     scanner.nextLine();
                     break;
                 case 2:
                     createGroupGoods();
-                    System.out.println("Ấn Enter để quay lại");
                     scanner.nextLine();
                     break;
                 case 3:
                     editGroupGoods();
-                    System.out.println("Ấn Enter để quay lại");
                     scanner.nextLine();
                     break;
                 case 4:
                     searchByName();
-                    System.out.println("Ấn Enter để quay lại");
                     scanner.nextLine();
                     break;
                 case 5:
                     deleteGroupGoods();
-                    System.out.println("Ấn Enter để quay lại");
                     scanner.nextLine();
                     break;
                 case 0:
                     quit = true;
                     break;
                 default:
-                    System.out.print("Xin mời nhập lại ,hãy nhập từ 0 đến 5 : ");
+                    System.out.print("Lua chon khong dung, vui long chon lai: ");
                     break;
             }
         } while (!quit);
@@ -65,24 +60,24 @@ public class GroupGoodsController {
     }
 
     public void menu() {
-        System.out.println("---------Quản Lý Nhóm Hàng---------");
-        System.out.println("1. Xem danh sách nhóm hàng");
-        System.out.println("2. Thêm nhóm hàng");
-        System.out.println("3. Sửa thông tin nhóm hàng");
-        System.out.println("4. Tìm kiếm nhóm hàng theo tên");
-        System.out.println("5. Xóa nhóm hàng");
-        System.out.println("0. Trở lại menu chính");
+        System.out.println("---------Quan ly nhom hang---------");
+        System.out.println("1. Xem danh sach nhom hang");
+        System.out.println("2. Them nhom hang");
+        System.out.println("3. Sua thong tin nhom hang");
+        System.out.println("4. Tim kiem nhom hang theo ten");
+        System.out.println("5. Xoa nhom hang");
+        System.out.println("0. Tro lai menu chinh");
     }
 
     public void displayName() {
-        System.out.printf("%-20s%-20s\n", "Mã nhóm", "Tên nhóm");
+        System.out.printf("%-20s%-20s\n", "Ma nhom", "Ten nhom");
     }
     
     public void displayList(ArrayList<NhomHang> list){
         if (list.size() <= 0) {
-            System.out.print("Hiện tại không có nhóm hàng nào đề hiện thị");
+            System.out.print("Hien tai khong co nhom hang de hien thi");
         } else {
-            System.out.println("Danh sách nhóm hàng : ");
+            System.out.println("Danh sach nhom hang : ");
             displayName();
             list.forEach((groupgoods1) -> {
                 System.out.printf("%-20.20s%-20.20s\n", groupgoods1.getMaNhom(), groupgoods1.getTenNhom());
@@ -121,7 +116,7 @@ public class GroupGoodsController {
         ArrayList<NhomHang> groupgoodslist = _nhomhangRepository.getAll();
         displayList(groupgoodslist);
         
-        System.out.print("Chọn nhóm hàng muốn xóa theo mã nhóm ");
+        System.out.print("Chon ma nhom hang muon xoa");
 
         int validSelectGroupGoods;
         int id = 0;
@@ -131,14 +126,14 @@ public class GroupGoodsController {
                 validSelectGroupGoods = 0;
             } catch (NumberFormatException ex) {
                 validSelectGroupGoods = 1;
-                System.out.print("Vui lòng nhập số vào : ");
+                System.out.print("Vui long nhap so : ");
             }
         } while (validSelectGroupGoods != 0);
 
         if (_nhomhangRepository.delete(id)) {
-            System.out.print("Xóa nhóm hàng thành công ");
+            System.out.print("Xoa nhom thanh cong");
         } else {
-            System.out.print("Lỗi không xác định");
+            System.out.print("Co loi xay ra, vui long thu lai");
         }
     }
 
@@ -147,14 +142,14 @@ public class GroupGoodsController {
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<NhomHang> groupgoodslist = _nhomhangRepository.getAll();
         
-        System.out.print("Tên nhóm hàng : ");
+        System.out.print("Ten nhom hang : ");
         boolean validGroupGoodsName;
         String tennhomhang = "";
         do {
             tennhomhang = scanner.nextLine();
             validGroupGoodsName = tennhomhang.matches("^[A-Za-z\\s]{5,30}");
             if (validGroupGoodsName == false) {
-                System.out.print("Tên nhóm hàng gồm số và chữ thường 3 đến 30 kí tự ");
+                System.out.print("Ten nhom hang co do dai 5-30 ky tu ");
             } else {
                 tennhomhang = ChuanHoaChuoi(tennhomhang);
             }
@@ -163,9 +158,9 @@ public class GroupGoodsController {
         NhomHang groupgoods = new NhomHang();
         groupgoods.setTenNhom(tennhomhang);
         if (_nhomhangRepository.insert(groupgoods) == true) {
-            System.out.println("Thêm nhóm hàng thành công");
+            System.out.println("Them nhom hang thanh cong");
         } else {
-            System.out.println("Thêm mới nhóm hàng không thành công, vui lòng kiểm tra lại");
+            System.out.println("Co loi xay ra, vui long kiem tra lai");
         }
     }
 
@@ -175,7 +170,7 @@ public class GroupGoodsController {
         ArrayList<NhomHang> groupgoodslist = _nhomhangRepository.getAll();
         
         displayList(groupgoodslist);
-        System.out.print("Chọn nhóm hàng muốn sửa thông tin : ");
+        System.out.print("Chon nhom hang muon sua thong tin : ");
 
         int id = 0;
         boolean validchoosegroupgoods = true;
@@ -184,23 +179,23 @@ public class GroupGoodsController {
                 id = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
                 validchoosegroupgoods = false;
-                System.out.print("Vui lòng nhập số vào ");
+                System.out.print("Vui long nhap so ");
             }
         } while (validchoosegroupgoods == false);
 
         NhomHang group = _nhomhangRepository.getbyId(id);
         if (group == null) {
-            System.out.print("Không tìm thấy nhóm hàng cần sửa");
+            System.out.print("Khong tim thay nhom hang can sua");
         } else {
-            System.out.print("Tên nhóm hàng : ");
+            System.out.print("Ten nhom hang : ");
             String tennhom;
             tennhom = scanner.nextLine();
             group.setTenNhom(tennhom);
             if (_nhomhangRepository.update(group)) {
-                System.out.println("Thay đổi thành công!");
+                System.out.println("Cap nhat thanh cong!");
                 dataconn.Close();
             } else {
-                System.out.println("Có lỗi xảy ra, vui lòng kiểm tra lại");
+                System.out.println("Co loi xay ra, vui long kiem tra lai");
             }
         }
 
@@ -213,9 +208,9 @@ public class GroupGoodsController {
 
         ArrayList<NhomHang> listSearch = new ArrayList<>();
         if (groupgoodslist.size() <= 0) {
-            System.out.println("Hiện tại không có nhóm hàng nào");
+            System.out.println("Hien tai khong co nhom hang nao");
         } else {
-            System.out.print("Nhập tên nhóm hàng : ");
+            System.out.print("Nhap ten nhom hang : ");
             String name = scanner.nextLine();
             for (NhomHang groupgoods : groupgoodslist) {
                 if ((groupgoods.getTenNhom().toUpperCase()).contains(name.toUpperCase())) {
@@ -225,7 +220,7 @@ public class GroupGoodsController {
             if (listSearch.size() > 0) {
                 displayList(listSearch);
             } else {
-                System.out.println("Không tìm thấy nhóm hàng phù hợp.");
+                System.out.println("Khong tim thay nhom hang phu hop.");
             }
         }
 

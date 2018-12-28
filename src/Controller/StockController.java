@@ -20,9 +20,9 @@ public class StockController {
         boolean quit = false;
         int menuItem;
         do {
-            System.out.println("---------Quản Lý Kho---------");
+            System.out.println("---------Quan ly kho---------");
             menu();
-            System.out.print("Nhập vào lựa chọn của bạn: ");
+            System.out.print("Nhap vao lua chon cua ban: ");
             try {
                 menuItem = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
@@ -54,7 +54,7 @@ public class StockController {
 //                    dataconn.Close();
                     break;
                 default:
-                    System.out.print("Xin mời nhập lại ,hãy nhập từ 0 đến 5 : ");
+                    System.out.print("Lua chon khong ton tai, vui long nhap lai: ");
                     break;
             }
         } while (!quit);
@@ -62,16 +62,16 @@ public class StockController {
     }
 
     public void menu() {
-        System.out.println("1. Xem danh sách kho hàng.");
-        System.out.println("2. Thêm kho hàng.");
-        System.out.println("3. Sửa thông tin kho hàng.");
-        System.out.println("4. Tìm kiếm kho hàng theo tên ");
-        System.out.println("5. Xóa kho hàng");
-        System.out.println("0. Trở lại menu chính");
+        System.out.println("1. Xem danh sach kho hang.");
+        System.out.println("2. Them kho hang.");
+        System.out.println("3. Sua thong tin kho hang.");
+        System.out.println("4. Tim kiem kho hang theo ten ");
+        System.out.println("5. Xoa kho hang");
+        System.out.println("0. Tro lai menu chinh");
     }
 
     public void displayName() {
-        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Mã kho", "Tên kho", "Địa điểm");
+        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ma kho", "Ten kho", "Dia diem");
     }
 
     public String ChuanHoaChuoi(String NameInput) {
@@ -92,15 +92,16 @@ public class StockController {
 
     public void displayList(ArrayList<Kho> list) {
         if (list.size() <= 0) {
-            System.out.print("Hiện tại không có kho hàng nào đề hiện thị");
+            System.out.print("Hien tai khong co kho hang nao de hien thi");
         } else {
-            System.out.println("Danh sách kho hàng : ");
+            System.out.println("Danh sach kho hang: ");
             int count = 1;
             displayName();
             for (Kho stock1 : list) {
                 System.out.printf("%-20.20s%-20.20s%-20.20s%-20.20s\n", count, stock1.getMaKho(), stock1.getTenKho(), stock1.getDiaDiem());
                 count++;
             }
+
         }
     }
 
@@ -110,6 +111,23 @@ public class StockController {
         ArrayList<Kho> stockList = _khoRepository.getAll();
 
         displayList(stockList);
+        System.out.println("ban co muon xem chi tiet kho(y/n)");
+        String check = scanner.nextLine();
+        if (check.equalsIgnoreCase("y")) {
+            System.out.println("Nhap ma kho ban muon xem chi tiet : ");
+            int makhochitiet=0;
+            boolean test = true;
+            do {
+                try {
+                    makhochitiet = Integer.parseInt(scanner.nextLine());
+                    test = false;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Vui long nhap ma kho chinh xac");
+                }
+            } while (test == true);
+            DetailStockController dst = new DetailStockController();
+            dst.main(makhochitiet);
+        }
     }
 
     public void deleteStock() throws SQLException {
@@ -118,7 +136,7 @@ public class StockController {
         ArrayList<Kho> stockList = _khoRepository.getAll();
 
         displayList(stockList);
-        System.out.print("Chọn kho muốn xóa theo mã kho ");
+        System.out.print("Chon kho muon xoa theo ma kho ");
 
         int validSelectStock;
         int id = 0;
@@ -128,14 +146,14 @@ public class StockController {
                 validSelectStock = 0;
             } catch (NumberFormatException ex) {
                 validSelectStock = 1;
-                System.out.print("Vui lòng nhập số vào : ");
+                System.out.print("Vui long nhap so : ");
             }
         } while (validSelectStock != 0);
 
         if (_khoRepository.delete(id)) {
-            System.out.print("Xóa kho thành công ");
+            System.out.print("Xoa kho thanh cong");
         } else {
-            System.out.print("Lỗi không xác định");
+            System.out.print("Co loi xay ra, vui long thu lai");
         }
     }
 
@@ -151,32 +169,30 @@ public class StockController {
             tenkho = scanner.nextLine();
             validStockName = tenkho.matches("^[A-Za-z\\s]{5,30}");
             if (validStockName == false) {
-                System.out.print("Tên kho hàng gồm số và chữ thường 3 đến 30 kí tự ");
+                System.out.print("Ten kho co do dai 5-30 ky tu");
             } else {
                 tenkho = ChuanHoaChuoi(tenkho);
             }
         } while (validStockName == false);
 
-        System.out.print("Địa chỉ : ");
+        System.out.print("Dia chi : ");
         boolean validAddress;
         String diadiem = "";
         do {
             diadiem = scanner.nextLine();
             validAddress = diadiem.matches("^[A-Za-z0-9\\s\\,\\.\\-]{4,200}");
             if (validAddress == false) {
-                System.out.print("Địa chỉ từ 10 đến 200 kí tự : ");
+                System.out.print("Dia chi co do dai 4-200 ky tu: ");
             }
         } while (validAddress == false);
 
         Kho stock = new Kho(0, tenkho, diadiem);
         if (_khoRepository.insert(stock) == true) {
-            System.out.println("Thêm thành công");
+            System.out.println("Them moi thanh cong");
         } else {
-            System.out.println("ID vừa nhập không tồn tại");
+            System.out.println("Co loi xay ra, vui long thu lai");
         }
     }
-//
-    //Sửa thông tin người dùng 
 
     public void editStock() throws SQLException {
         DataConnection dataconn = new DataConnection();
@@ -184,7 +200,7 @@ public class StockController {
         ArrayList<Kho> stockList = _khoRepository.getAll();
         displayList(stockList);
 
-        System.out.print("Chọn kho muốn sửa thông tin theo mã kho : ");
+        System.out.print("Chon kho muon xoa thong tin theo ma kho: ");
 
         int id = 0;
         boolean validchooseStock = true;
@@ -193,47 +209,46 @@ public class StockController {
                 id = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
                 validchooseStock = false;
-                System.out.print("Vui lòng nhập số vào ");
+                System.out.print("Vui long nhap so: ");
             }
         } while (validchooseStock == false);
 
         Kho stock = _khoRepository.getbyId(id);
         if (stock == null) {
-            System.out.print("Không tìm thấy kho hàng muốn xóa ");
+            System.out.print("Khong tim thay kho hang muon xoa ");
         } else {
             //1: regex Username từ 3-30 kí tự        
-            System.out.print("Tên kho hàng : ");
+            System.out.print("Ten kho : ");
             boolean validStockName;
             String tenkho = "";
             do {
                 tenkho = scanner.nextLine();
                 validStockName = tenkho.matches("^[A-Za-z\\s]{5,30}");
                 if (validStockName == false) {
-                    System.out.print("Tên kho hàng gồm số và chữ thường 3 đến 30 kí tự ");
+                    System.out.print("Ten kho hang co do dai 5-30 ky tu ");
                 } else {
                     tenkho = ChuanHoaChuoi(tenkho);
                 }
             } while (validStockName == false);
-            System.out.print("Địa chỉ : ");
+            System.out.print("Dia chi : ");
             boolean validAddress;
             String diadiem = "";
             do {
                 diadiem = scanner.nextLine();
                 validAddress = diadiem.matches("^[A-Za-z0-9\\s\\,\\.\\-]{4,200}");
                 if (validAddress == false) {
-                    System.out.print("Địa chỉ từ 10 đến 200 kí tự : ");
+                    System.out.print("Dia chi co do dai 4-200 ky tu : ");
                 }
             } while (validAddress == false);
             Kho stock1 = new Kho(stock.getMaKho(), tenkho, diadiem);
             if (_khoRepository.update(stock1)) {
-                System.out.println("Thay đổi thành công!");
+                System.out.println("Cap nhat thanh cong!");
             } else {
-                System.out.println("Lỗi không xác định");
+                System.out.println("Co loi xay ra, vui long thu lai");
             }
         }
 
     }
-    //Tìm kiếm thông tin người dùng 
 
     public void searchByName() throws SQLException {
         DataConnection dataconn = new DataConnection();
@@ -242,9 +257,9 @@ public class StockController {
 
         ArrayList<Kho> listSearch = new ArrayList<>();
         if (stockList.size() <= 0) {
-            System.out.println("Hiện tại không có kho hàng nào");
+            System.out.println("Hien tai khong co kho hang nao");
         } else {
-            System.out.print("Nhập tên kho hàng : ");
+            System.out.print("Nhap ten kho hang : ");
             String name = scanner.nextLine();
             for (Kho stock : stockList) {
                 if ((stock.getTenKho().toUpperCase()).contains(name.toUpperCase())) {
@@ -254,7 +269,7 @@ public class StockController {
             if (listSearch.size() > 0) {
                 displayList(listSearch);
             } else {
-                System.out.println("Không tìm thấy kho hàng phù hợp.");
+                System.out.println("Khong tim thay kho hang phu hop.");
             }
         }
 

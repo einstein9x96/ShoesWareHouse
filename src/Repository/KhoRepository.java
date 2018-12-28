@@ -31,7 +31,6 @@ public class KhoRepository {
             kho.setDiaDiem(rs.getString("dia_diem"));
             listkho.add(kho);
         }
-        // Đóng Connect
 
         return listkho;
     }

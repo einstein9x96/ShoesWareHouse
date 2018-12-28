@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import DataConnect.DataConnection;
@@ -14,10 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Chinh
- */
 public class CategoriesController {
     
     public Scanner scanner = new Scanner(System.in);
@@ -32,7 +24,7 @@ public class CategoriesController {
         int menuItem;
         do {
             menu();
-            System.out.print("Nhập vào lựa chọn của bạn: ");
+            System.out.print("Nhap vao lua chon cua ban: ");
             try {
                 menuItem = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
@@ -63,7 +55,7 @@ public class CategoriesController {
                     quit = true;
                     break;
                 default:
-                    System.out.println("Xin mời nhập lại ,hãy nhập từ 0 đến 5 : ");
+                    System.out.println("Lua chon cua ban khong dung, vui long nhap lai: ");
                     break;
             }
         } while (!quit);
@@ -71,25 +63,25 @@ public class CategoriesController {
     }
     
     public void menu() {
-        System.out.println("----------Quản lý hàng hóa----------");
-        System.out.println("1. Xem danh sách hàng hóa");
-        System.out.println("2. Thêm hàng hóa");
-        System.out.println("3. Tìm kiếm hàng hóa theo tên");
-        System.out.println("4. Sửa thông tin hàng hóa");
-        System.out.println("5. Xóa hàng hóa");
-        System.out.println("0. Trở lại menu chính");
+        System.out.println("----------Quan ly hang hoa----------");
+        System.out.println("1. Xem danh sach hang hoa");
+        System.out.println("2. Them hang hoa");
+        System.out.println("3. Sua thong tin hang hoa");
+        System.out.println("4. Tim kiem hang hoa");
+        System.out.println("5. Xoa hang hoa");
+        System.out.println("0. Tro lai menu chinh");
     }
     
     public void displayName() {
-        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Mã hàng hóa", "Tên hàng hóa", "Đơn vị tính");
+        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ma hang", "Ten hang", "Don vi tinh");
     }
     
     public void displayList(ArrayList<HangHoa> list) {
         if (list.size() <= 0) {
-            System.out.println("Hiện tại không có hàng hóa nào đề hiện thị");
+            System.out.println("Hien tai khong co hang hoa nao de hien thi");
         } else {
-            System.out.println("Danh sách hàng hóa : ");
-            int count = 0;
+            System.out.println("Danh sach hang hoa : ");
+            int count = 1;
             displayName();
             for (HangHoa goods1 : list) {
                 System.out.printf("%-20.20s%-20.20s%-20.20s%-20.20s\n", count, goods1.getMaHang(), goods1.getTenHang(), goods1.getDVT());
@@ -114,7 +106,6 @@ public class CategoriesController {
         return Name;
     }
 
-    //Xem danh sách người dùng.
     public void Goodslist() throws SQLException {
         DataConnection dataconn = new DataConnection();
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
@@ -124,7 +115,6 @@ public class CategoriesController {
         displayList(listhanghoa);
     }
 
-    // Xóa người dùng.
     public void deleteGoods() throws SQLException {
         DataConnection dataconn = new DataConnection();
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
@@ -132,7 +122,7 @@ public class CategoriesController {
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
         
         displayList(listhanghoa);
-        System.out.print("Chọn hàng hóa muốn xóa theo mã ");
+        System.out.print("Chon hang hoa muon xoa theo ma");
         
         int validSelectGoods;
         int id = 0;
@@ -142,14 +132,14 @@ public class CategoriesController {
                 validSelectGoods = 0;
             } catch (NumberFormatException ex) {
                 validSelectGoods = 1;
-                System.out.print("Vui lòng nhập số vào : ");
+                System.out.print("Vui long nhap so vao : ");
             }
         } while (validSelectGoods != 0);
         
         if (_HangHoaRepository.delete(id)) {
-            System.out.println("Xóa hàng hóa thành công ");
+            System.out.println("Xoa hang hoa thanh cong");
         } else {
-            System.out.println("Không thể xóa, vui lòng kiểm tra lại");
+            System.out.println("Khong the xoa, vui long kiem tra lai");
         }
     }
 
@@ -160,26 +150,26 @@ public class CategoriesController {
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
         
         
-        System.out.print("Tên hàng hóa : ");
+        System.out.print("Ten hang hoa : ");
         boolean validGoodsName;
         String tenhanghoa = "";
         do {
             tenhanghoa = scanner.nextLine();
-            validGoodsName = tenhanghoa.matches("^[A-Za-z\\s]{5,30}");
+            validGoodsName = tenhanghoa.matches("^[A-Za-z\\s]{5,50}");
             if (validGoodsName == false) {
-                System.out.print("Tên hàng hóa gồm số và chữ thường 3 đến 30 kí tự ");
+                System.out.print("Ten hang hoa gom ky tu va so cos do dai 5-50 ky tu");
             } else {
                 tenhanghoa = ChuanHoaChuoi(tenhanghoa);
             }
         } while (validGoodsName == false);
         
-        System.out.println("Danh sách nhóm hàng hóa có thể lựa chọn : ");
+        System.out.println("Danh sach nhom hang hoa co the lua chon : ");
         ArrayList<NhomHang> nh = _nhomhangRepository.getAll();
-        System.out.printf("%-20s%-20s\n", "Mã nhóm", "Tên nhóm");
+        System.out.printf("%-20s%-20s\n", "Ma nhom", "Ten nhom");
         for (NhomHang nh1 : nh) {
             System.out.printf("%-20.20s%-20.20s\n", nh1.getMaNhom(), nh1.getTenNhom());
         }
-        System.out.print("Mã nhóm : ");
+        System.out.print("Ma nhom : ");
         boolean validGoodsId;
         String manhom;
         int ma_nhom = 0;
@@ -189,38 +179,35 @@ public class CategoriesController {
             validGoodsId = true;
 //                    manhom.matches("[0-9]{3,10}");
             if (validGoodsId == false) {
-                System.out.print("Mã kho gồm số từ 3 đến 10 kí tự ");
+                System.out.print(" ");
             } else {
                 ma_nhom = Integer.parseInt(manhom);
                 NhomHang nhcheck = _nhomhangRepository.getbyId(ma_nhom);
                 if (nhcheck == null) {
-                    System.out.print("Vui lòng nhập mã nhóm trong danh sách");
+                    System.out.print("Vui long nhap ma nhom trong danh sach");
                     validGoodsId = false;
                 }
             }
         } while (validGoodsId == false);
 
-        //7: regex dia chi, tu 10-200 ki tu
-        System.out.print("Đơn vị tính : ");
+        System.out.print("Don vi tinh : ");
         boolean validDVT;
         String dvt = "";
         do {
             dvt = scanner.nextLine();
             validDVT = dvt.matches("^[A-Za-z]{3,10}");
             if (validDVT == false) {
-                System.out.print("Đơn vị tính từ 3 đến 10 kí tự : ");
+                System.out.print("Don vi tinh co do dai 3-10 ky tu: ");
             }
         } while (validDVT == false);
         
         HangHoa goods = new HangHoa(0, ma_nhom, tenhanghoa, dvt);
         if (_HangHoaRepository.insert(goods) == true) {
-            System.out.println("Thêm thành công");
+            System.out.println("Them thanh cong");
         } else {
-            System.out.println("Có lỗi xảy ra,, vui lòng thử lại");
+            System.out.println("Co loi xay ra, vui long thu lai");
         }
     }
-//
-    //Sửa thông tin người dùng 
 
     public void editGoods() throws SQLException {
         DataConnection dataconn = new DataConnection();
@@ -229,7 +216,7 @@ public class CategoriesController {
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
         displayList(listhanghoa);
         
-        System.out.print("Chọn hàng hóa muốn sửa thông tin theo mã hàng hóa : ");
+        System.out.print("Chon hang hoa cap nhat thong tin theo ma hang hoa: ");
         
         int id = 0;
         boolean validchooseGoods = true;
@@ -238,47 +225,45 @@ public class CategoriesController {
                 id = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException ex) {
                 validchooseGoods = false;
-                System.out.print("Vui lòng nhập số vào ");
+                System.out.print("Vui long nhap so vao ");
             }
         } while (validchooseGoods == false);
         
         HangHoa goods = _HangHoaRepository.getbyId(id);
         if (goods == null) {
-            System.out.print("Không tìm thấy hàng hóa muốn xóa ");
+            System.out.print("Khong tim thay hang hoa muon xoa ");
         } else {
-            //1: regex Username từ 3-30 kí tự        
-            System.out.print("Tên hàng hóa : ");
+            System.out.print("Ten hang hoa : ");
             boolean validGoodsName;
             String tenhanghoa = "";
             do {
                 tenhanghoa = scanner.nextLine();
-                validGoodsName = tenhanghoa.matches("^[A-Za-z\\s]{5,30}");
+                validGoodsName = tenhanghoa.matches("^[A-Za-z\\s]{5,50}");
                 if (validGoodsName == false) {
-                    System.out.print("Tên hàng hóa hàng gồm số và chữ thường 3 đến 30 kí tự ");
+                    System.out.print("Ten hang hoa co do dai tu 5-50 ky tu ");
                 } else {
                     tenhanghoa = ChuanHoaChuoi(tenhanghoa);
                 }
             } while (validGoodsName == false);
-            System.out.print("Đơn vị tính : ");
+            System.out.print("Don vi tinh : ");
             boolean validDVT;
             String dvt = "";
             do {
                 dvt = scanner.nextLine();
                 validDVT = dvt.matches("^[A-Za-z0-9\\s\\,\\.\\-]{3,10}");
                 if (validDVT == false) {
-                    System.out.print("Đơn vị tính từ 3 đến 10 kí tự : ");
+                    System.out.print("Don vi tinh co do dai 3-10 ky tu:  ");
                 }
             } while (validDVT == false);
-            HangHoa goods1 = new HangHoa(0, goods.getMaHang(), tenhanghoa, dvt);
+            HangHoa goods1 = new HangHoa(goods.getMaHang(), goods.getMaNhom(), tenhanghoa, dvt);
             if (_HangHoaRepository.update(goods1)) {
-                System.out.println("Thay đổi thành công!");
+                System.out.println("Cap nhat thanh cong!");
             } else {
-                System.out.println("Có lỗi xảy ra, vui lòng thử lại");
+                System.out.println("Co loi xay ra vui long thu lai");
             }
         }
         
     }
-    //Tìm kiếm thông tin người dùng 
 
     public void searchByName() throws SQLException {
         DataConnection dataconn = new DataConnection();
@@ -288,9 +273,9 @@ public class CategoriesController {
         
         ArrayList<HangHoa> listSearch = new ArrayList<>();
         if (listhanghoa.size() <= 0) {
-            System.out.println("Hiện tại không có hàng hóa nào");
+            System.out.println("Hien tai khong co hang hoa nao");
         } else {
-            System.out.print("Nhập tên hàng hóa: ");
+            System.out.print("Nhap ten hang hoa: ");
             String name = scanner.nextLine();
             for (HangHoa goods : listhanghoa) {
                 if ((goods.getTenHang().toUpperCase()).contains(name.toUpperCase())) {
@@ -300,7 +285,7 @@ public class CategoriesController {
             if (listSearch.size() > 0) {
                 displayList(listSearch);
             } else {
-                System.out.println("Không tìm thấy hàng hóa phù hợp.");
+                System.out.println("Khong tim thay hang hoa phu hop.");
             }
         }
         

@@ -82,9 +82,9 @@ public class Menu {
                         OrdersController order = new OrdersController();
                         order.main(user);
                         break;
-                    case 4:
-                        
-                        break;
+//                    case 4:
+//                        
+//                        break;
                     case 0:
                         System.out.println("Dang xuat thanh cong");
                         logout = true;
@@ -102,7 +102,7 @@ public class Menu {
         System.out.println("1. Quan ly hang hoa");
         System.out.println("2. Quan ly nhom hang");
         System.out.println("3. Quan ly don hang");
-        System.out.println("4. Xem chi tiet kho");
+//        System.out.println("4. Xem chi tiet kho");
         System.out.println("0. Dang xuat");
     }
 }

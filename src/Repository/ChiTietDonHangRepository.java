@@ -34,7 +34,6 @@ public class ChiTietDonHangRepository {
             CTDH.setMaDon(rs.getInt("ma_don"));
             listCTDH.add(CTDH);
         }
-        // Đóng Connect
 
         return listCTDH;
     }

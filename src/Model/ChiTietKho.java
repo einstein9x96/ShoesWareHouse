@@ -38,4 +38,13 @@ public class ChiTietKho {
     public void setSL(int sl) {
         this.so_luong = sl;
     }
+
+    public ChiTietKho(int id, int ma_kho, int ma_hang, int so_luong) {
+        this.id = id;
+        this.ma_kho = ma_kho;
+        this.ma_hang = ma_hang;
+        this.so_luong = so_luong;
+    }
+    public ChiTietKho(){
+    }
 }

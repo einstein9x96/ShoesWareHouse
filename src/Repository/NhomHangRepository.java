@@ -31,7 +31,6 @@ public class NhomHangRepository {
             NH.setTenNhom(rs.getString("ten_nhom"));
             listNH.add(NH);
         }
-        // Đóng Connect
 
         return listNH;
     }
