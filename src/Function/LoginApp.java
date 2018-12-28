@@ -12,7 +12,7 @@ public class LoginApp {
         AdminRepository adRepository = new AdminRepository(dataConn);
         Admin user = adRepository.getAdmin(username, password);
         if(user.getRole() == null){
-            return "Sai tài khoản hoặc mật khẩu. Vui lòng thử lại";
+            return "Sai tai khoan hoac mat khau, vui long thu lai";
         }
         else
             return user.getRole();

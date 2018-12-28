@@ -1,4 +1,3 @@
-
 package Controller;
 
 import DataConnect.DataConnection;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CategoriesController {
-    
+
     public Scanner scanner = new Scanner(System.in);
 //    DataConnection dataconn = new DataConnection();
 //    HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
@@ -19,7 +18,7 @@ public class CategoriesController {
 //    ArrayList<HangHoa> listhanghoa;
 
     public void main() throws SQLException {
-        
+
         boolean quit = false;
         int menuItem;
         do {
@@ -59,9 +58,9 @@ public class CategoriesController {
                     break;
             }
         } while (!quit);
-        
+
     }
-    
+
     public void menu() {
         System.out.println("----------Quan ly hang hoa----------");
         System.out.println("1. Xem danh sach hang hoa");
@@ -71,11 +70,11 @@ public class CategoriesController {
         System.out.println("5. Xoa hang hoa");
         System.out.println("0. Tro lai menu chinh");
     }
-    
+
     public void displayName() {
         System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ma hang", "Ten hang", "Don vi tinh");
     }
-    
+
     public void displayList(ArrayList<HangHoa> list) {
         if (list.size() <= 0) {
             System.out.println("Hien tai khong co hang hoa nao de hien thi");
@@ -89,7 +88,7 @@ public class CategoriesController {
             }
         }
     }
-    
+
     public String ChuanHoaChuoi(String NameInput) {
         String Name = "";
         NameInput = NameInput.toLowerCase();
@@ -99,7 +98,7 @@ public class CategoriesController {
                 Name += String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1) + " ";
             }
         }
-        
+
         if (!Name.isEmpty()) {
             Name = Name.substring(0, Name.length() - 1);
         }
@@ -111,7 +110,7 @@ public class CategoriesController {
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
-        
+
         displayList(listhanghoa);
     }
 
@@ -120,10 +119,10 @@ public class CategoriesController {
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
-        
+
         displayList(listhanghoa);
         System.out.print("Chon hang hoa muon xoa theo ma");
-        
+
         int validSelectGoods;
         int id = 0;
         do {
@@ -135,7 +134,7 @@ public class CategoriesController {
                 System.out.print("Vui long nhap so vao : ");
             }
         } while (validSelectGoods != 0);
-        
+
         if (_HangHoaRepository.delete(id)) {
             System.out.println("Xoa hang hoa thanh cong");
         } else {
@@ -148,8 +147,7 @@ public class CategoriesController {
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
-        
-        
+
         System.out.print("Ten hang hoa : ");
         boolean validGoodsName;
         String tenhanghoa = "";
@@ -162,7 +160,7 @@ public class CategoriesController {
                 tenhanghoa = ChuanHoaChuoi(tenhanghoa);
             }
         } while (validGoodsName == false);
-        
+
         System.out.println("Danh sach nhom hang hoa co the lua chon : ");
         ArrayList<NhomHang> nh = _nhomhangRepository.getAll();
         System.out.printf("%-20s%-20s\n", "Ma nhom", "Ten nhom");
@@ -171,22 +169,22 @@ public class CategoriesController {
         }
         System.out.print("Ma nhom : ");
         boolean validGoodsId;
-        String manhom;
         int ma_nhom = 0;
         do {
-            manhom = scanner.nextLine();
-            //"^[A-Za-z\\s]{5,30}$"
             validGoodsId = true;
-//                    manhom.matches("[0-9]{3,10}");
-            if (validGoodsId == false) {
-                System.out.print(" ");
-            } else {
-                ma_nhom = Integer.parseInt(manhom);
-                NhomHang nhcheck = _nhomhangRepository.getbyId(ma_nhom);
-                if (nhcheck == null) {
-                    System.out.print("Vui long nhap ma nhom trong danh sach");
-                    validGoodsId = false;
+            boolean test = true;
+            do {
+                try {
+                    ma_nhom = Integer.parseInt(scanner.nextLine());
+                    test = false;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Vui long nhap ma chinh xac");
                 }
+            } while (test == true);
+            NhomHang nhcheck = _nhomhangRepository.getbyId(ma_nhom);
+            if (nhcheck == null) {
+                System.out.print("Vui long nhap ma nhom trong danh sach");
+                validGoodsId = false;
             }
         } while (validGoodsId == false);
 
@@ -200,7 +198,7 @@ public class CategoriesController {
                 System.out.print("Don vi tinh co do dai 3-10 ky tu: ");
             }
         } while (validDVT == false);
-        
+
         HangHoa goods = new HangHoa(0, ma_nhom, tenhanghoa, dvt);
         if (_HangHoaRepository.insert(goods) == true) {
             System.out.println("Them thanh cong");
@@ -215,9 +213,9 @@ public class CategoriesController {
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
         displayList(listhanghoa);
-        
+
         System.out.print("Chon hang hoa cap nhat thong tin theo ma hang hoa: ");
-        
+
         int id = 0;
         boolean validchooseGoods = true;
         do {
@@ -228,7 +226,7 @@ public class CategoriesController {
                 System.out.print("Vui long nhap so vao ");
             }
         } while (validchooseGoods == false);
-        
+
         HangHoa goods = _HangHoaRepository.getbyId(id);
         if (goods == null) {
             System.out.print("Khong tim thay hang hoa muon xoa ");
@@ -262,7 +260,7 @@ public class CategoriesController {
                 System.out.println("Co loi xay ra vui long thu lai");
             }
         }
-        
+
     }
 
     public void searchByName() throws SQLException {
@@ -270,7 +268,7 @@ public class CategoriesController {
         HangHoaRepository _HangHoaRepository = new HangHoaRepository(dataconn);
         NhomHangRepository _nhomhangRepository = new NhomHangRepository(dataconn);
         ArrayList<HangHoa> listhanghoa = _HangHoaRepository.getAll();
-        
+
         ArrayList<HangHoa> listSearch = new ArrayList<>();
         if (listhanghoa.size() <= 0) {
             System.out.println("Hien tai khong co hang hoa nao");
@@ -288,7 +286,7 @@ public class CategoriesController {
                 System.out.println("Khong tim thay hang hoa phu hop.");
             }
         }
-        
+
     }
-    
+
 }

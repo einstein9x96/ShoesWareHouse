@@ -105,10 +105,19 @@ public class UserController {
             System.out.print("Chon nguoi dung muon xoa : ");
 
             boolean deleted;
-            int id;
+            int id = 0;
             do {
                 try {
-                    id = Integer.parseInt(sc.nextLine());
+//                    id = Integer.parseInt(sc.nextLine());
+                    boolean validInputNum = true;
+                    do {
+                        try {
+                            id = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException ex) {
+                            validInputNum = false;
+                            System.out.print("Vui long nhap so vao ");
+                        }
+                    } while (validInputNum == false);
                     if (adRepository.delete(id)) {
                         System.out.println("Xoa thanh cong!");
                         deleted = true;
@@ -133,8 +142,8 @@ public class UserController {
             System.out.println("Hien chua co nguoi dung.");
         } else {
             boolean choose = true;
-            int id;
-            int infoNum;
+            int id = 0;
+            int infoNum = 20;
             do {
                 try {
                     userList.forEach((anuser) -> {
@@ -142,13 +151,22 @@ public class UserController {
                         System.out.println(anuser.getId() + ". " + anuser.getTen() + " - " + anuser.getUserName());
                     });
                     System.out.println("Vui long nhap id nguoi dung cap nhat thong tin: ");
-                    id = Integer.parseInt(sc.nextLine());
+//                    id = Integer.parseInt(sc.nextLine());
+                    boolean validInputNum = true;
+                    do {
+                        try {
+                            id = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException ex) {
+                            validInputNum = false;
+                            System.out.print("Vui long nhap so vao ");
+                        }
+                    } while (validInputNum == false);
                     Admin user = adRepository.getbyId(id);
                     if (user == null) {
                         System.out.println("Nguoi dung khon ton tai");
                         choose = false;
                     } else {
-                        int checkcontinue;
+                        int checkcontinue = 20;
                         do {
                             System.out.println("------Thong tin nguoi dung------");
                             System.out.println("1. Ten: " + user.getTen());
@@ -157,7 +175,16 @@ public class UserController {
                             System.out.println("4. Quyen quan tri: " + user.getRole());
                             System.out.println("0. Quay lai");
                             System.out.println("Chon thong tin nguoi dung can cap nhat: ");
-                            infoNum = Integer.parseInt(sc.nextLine());
+//                            infoNum = Integer.parseInt(sc.nextLine());
+                            boolean validInputNum2 = true;
+                            do {
+                                try {
+                                    infoNum = Integer.parseInt(sc.nextLine());
+                                } catch (NumberFormatException ex) {
+                                    validInputNum2 = false;
+                                    System.out.print("Vui long nhap so vao ");
+                                }
+                            } while (validInputNum2 == false);
                             switch (infoNum) {
                                 case 1:
                                     System.out.println("Din ten nguoi dung");
@@ -195,12 +222,21 @@ public class UserController {
                                     System.out.println("Chon quyen nguoi dung");
                                     System.out.println("1. Admin");
                                     System.out.println("2. Thu kho");
-                                    int role;
+                                    int role = 12;
                                     boolean check;
                                     do {
                                         check = true;
 
-                                        role = Integer.parseInt(sc.nextLine());
+//                                        role = Integer.parseInt(sc.nextLine());
+                                        boolean validInputNum3 = true;
+                                        do {
+                                            try {
+                                                role = Integer.parseInt(sc.nextLine());
+                                            } catch (NumberFormatException ex) {
+                                                validInputNum3 = false;
+                                                System.out.print("Vui long nhap so vao ");
+                                            }
+                                        } while (validInputNum3 == false);
                                         switch (role) {
                                             case 1:
                                                 user.setRole("sa");
@@ -229,7 +265,16 @@ public class UserController {
                             System.out.println("Bạn có muốn cập nhật thông tin khác không?");
                             System.out.println("1. Có");
                             System.out.println("0. Không");
-                            checkcontinue = Integer.parseInt(sc.nextLine());
+//                            checkcontinue = Integer.parseInt(sc.nextLine());
+                            boolean validInputNum4 = true;
+                            do {
+                                try {
+                                    checkcontinue = Integer.parseInt(sc.nextLine());
+                                } catch (NumberFormatException ex) {
+                                    validInputNum4 = false;
+                                    System.out.print("Vui long nhap so vao ");
+                                }
+                            } while (validInputNum4 == false);
                         } while (checkcontinue != 0);
 
                     }
@@ -283,7 +328,7 @@ public class UserController {
         System.out.print("Ten : ");
         user.setTen(sc.nextLine());
 
-        int role;
+        int role = 3;
         boolean check;
         do {
             check = true;
@@ -291,7 +336,16 @@ public class UserController {
             System.out.println("Quyen nguoi dung: ");
             System.out.println("1.Admin");
             System.out.println("2.Thu kho");
-            role = Integer.parseInt(sc.nextLine());
+//            role = Integer.parseInt(sc.nextLine());
+            boolean validInputNum = true;
+            do {
+                try {
+                    role = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException ex) {
+                    validInputNum = false;
+                    System.out.print("Vui long nhap so vao ");
+                }
+            } while (validInputNum == false);
             switch (role) {
                 case 1:
                     user.setRole("sa");

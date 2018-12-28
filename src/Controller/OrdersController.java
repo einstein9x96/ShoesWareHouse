@@ -160,7 +160,16 @@ public class OrdersController {
         System.out.println("Chon loai phieu");
         System.out.println("1. Phieu nhap");
         System.out.println("0. Phieu xuat");
-        int kind = Integer.parseInt(scanner.nextLine());
+        int kind = 20;
+        boolean validInputNum = true;
+        do {
+            try {
+                kind = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                validInputNum = false;
+                System.out.print("Vui long nhap so vao ");
+            }
+        } while (validInputNum == false);
         boolean checkinput;
         do {
             checkinput = true;
@@ -191,12 +200,21 @@ public class OrdersController {
         ArrayList<DonHang> orderList = orRepository.getAll();
         displayTitle();
         displayList(orderList);
-        int id;
+        int id = 0;
         boolean check;
         do {
             check = true;
             System.out.println("Vui long chon don hang can cap nhat thong tin: ");
-            id = Integer.parseInt(scanner.nextLine());
+
+            boolean validInputNum = true;
+            do {
+                try {
+                    id = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException ex) {
+                    validInputNum = false;
+                    System.out.print("Vui long nhap so vao ");
+                }
+            } while (validInputNum == false);
             DonHang existOrder = orRepository.getbyId(id);
 
             if (existOrder == null) {
@@ -239,9 +257,18 @@ public class OrdersController {
         DonHangRepository orRepository = new DonHangRepository(dataconn);
         ChiTietDonHangRepository _orderDetail = new ChiTietDonHangRepository(dataconn);
         getAllOrders();
-        int madon;
+        int madon = 0;
         System.out.println("Chon 1 don hang de xem chi tiet");
-        madon = Integer.parseInt(scanner.nextLine());
+//        madon = Integer.parseInt(scanner.nextLine());
+        boolean validInputNum = true;
+        do {
+            try {
+                madon = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                validInputNum = false;
+                System.out.print("Vui long nhap so vao ");
+            }
+        } while (validInputNum == false);
         ArrayList<ChiTietDonHang> orderDetailList = _orderDetail.getbyMaDonHang(madon);
         if (orderDetailList == null) {
             System.out.println("Khong co chi tiet don hang cho don hang nay");
@@ -255,11 +282,19 @@ public class OrdersController {
         DataConnection dataconn = new DataConnection();
         DonHangRepository orRepository = new DonHangRepository(dataconn);
         ChiTietDonHangRepository _orderDetail = new ChiTietDonHangRepository(dataconn);
-        int id;
+        int id = 0;
         viewDetailOrder();
         System.out.println("Chon chi tiet don hang ban muon cap nhat");
-        id = Integer.parseInt(scanner.nextLine());
-
+//        id = Integer.parseInt(scanner.nextLine());
+        boolean validInputNum = true;
+        do {
+            try {
+                id = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                validInputNum = false;
+                System.out.print("Vui long nhap so vao ");
+            }
+        } while (validInputNum == false);
         ChiTietDonHang orderDetail = _orderDetail.getbyId(id);
 
         if (orderDetail == null) {
@@ -268,15 +303,34 @@ public class OrdersController {
             boolean checkUpdate;
             do {
                 checkUpdate = true;
-                int mahang;
+                int mahang = 0;
                 System.out.println("Chon ma hang cho chi tiet don hang");
                 GroupGoodsController groupGoodsController = new GroupGoodsController();
                 groupGoodsController.GroupGoodslist();
-                mahang = Integer.parseInt(scanner.nextLine());
+//                mahang = Integer.parseInt(scanner.nextLine());
+
+                boolean validInputNum2 = true;
+                do {
+                    try {
+                        mahang = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException ex) {
+                        validInputNum2 = false;
+                        System.out.print("Vui long nhap so vao ");
+                    }
+                } while (validInputNum2 == false);
                 orderDetail.setMaHang(mahang);
                 System.out.println("Dien so luong nhap/xuat");
-                orderDetail.setSLNhap(Integer.parseInt(scanner.nextLine()));
-
+                int slnhap = 0;
+                boolean validInputNum3 = true;
+                do {
+                    try {
+                        slnhap = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException ex) {
+                        validInputNum3 = false;
+                        System.out.print("Vui long nhap so vao ");
+                    }
+                } while (validInputNum3 == false);
+                orderDetail.setSLNhap(slnhap);
                 if (_orderDetail.update(orderDetail)) {
                     System.out.println("Cap nhat thanh cong");
                 } else {
@@ -295,16 +349,25 @@ public class OrdersController {
         boolean insert;
         do {
             insert = true;
-            
+
             ChiTietDonHang newDetail = new ChiTietDonHang();
-            int mahang;
-            int madon;
+            int mahang = 0;
+            int madon = 0;
             boolean check;
             getAllOrders();
             do {
                 check = true;
                 System.out.println("Chon 1 don hang de them chi tiet don hang");
-                madon = Integer.parseInt(scanner.nextLine());
+//                madon = Integer.parseInt(scanner.nextLine());
+                boolean validInputNum = true;
+                do {
+                    try {
+                        madon = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException ex) {
+                        validInputNum = false;
+                        System.out.print("Vui long nhap so vao ");
+                    }
+                } while (validInputNum == false);
                 DonHang order = orRepository.getbyId(madon);
                 if (order == null) {
                     check = false;
@@ -317,11 +380,30 @@ public class OrdersController {
             System.out.println("Chon ma hang cho chi tiet don hang");
             GroupGoodsController groupGoodsController = new GroupGoodsController();
             groupGoodsController.GroupGoodslist();
-            mahang = Integer.parseInt(scanner.nextLine());
+//            mahang = Integer.parseInt(scanner.nextLine());
+            boolean validInputNum = true;
+            do {
+                try {
+                    mahang = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException ex) {
+                    validInputNum = false;
+                    System.out.print("Vui long nhap so vao ");
+                }
+            } while (validInputNum == false);
             newDetail.setMaHang(mahang);
 
             System.out.println("Dien so luong nhap/xuat");
-            newDetail.setSLNhap(Integer.parseInt(scanner.nextLine()));
+            int slnhap = 0;
+            boolean validInputNum3 = true;
+            do {
+                try {
+                    slnhap = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException ex) {
+                    validInputNum3 = false;
+                    System.out.print("Vui long nhap so vao ");
+                }
+            } while (validInputNum3 == false);
+            newDetail.setSLNhap(slnhap);
 
             if (_orderDetail.insert(newDetail)) {
                 System.out.println("Them moi thanh cong");
@@ -330,6 +412,6 @@ public class OrdersController {
                 System.out.println("Co loi xay ra, vui long thu lai");
             }
         } while (!insert);
-        
+
     }
 }
