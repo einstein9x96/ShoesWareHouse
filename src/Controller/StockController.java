@@ -1,6 +1,7 @@
 package Controller;
 
 import DataConnect.DataConnection;
+import Model.Admin;
 import Model.Kho;
 import Repository.KhoRepository;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class StockController {
 //    KhoRepository _khoRepository = new KhoRepository(dataconn);
 //    ArrayList<Kho> list;
 
-    public void main() throws SQLException {
+    public void main(Admin user) throws SQLException {
 
         boolean quit = false;
         int menuItem;

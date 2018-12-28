@@ -28,7 +28,6 @@ public class CategoriesController {
 
     public void main() throws SQLException {
         
-        Scanner in = new Scanner(System.in);
         boolean quit = false;
         int menuItem;
         do {

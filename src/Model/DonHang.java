@@ -6,7 +6,7 @@ public class DonHang {
 
     private int id;
     private int ma_thukho;
-    private Date ngay_nhap;
+    private String ngay_nhap;
     private int loai_phieu;
 
     public int getId() {
@@ -25,11 +25,11 @@ public class DonHang {
         this.ma_thukho = matk;
     }
 
-    public Date getNgayNhap() {
+    public String getNgayNhap() {
         return ngay_nhap;
     }
 
-    public void setNgayNhap(Date ngay) {
+    public void setNgayNhap(String ngay) {
         this.ngay_nhap = ngay;
     }
 

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ChiTietDonHangRepository {
@@ -39,29 +40,20 @@ public class ChiTietDonHangRepository {
     }
 
     public boolean insert(ChiTietDonHang CTDH) throws SQLException {
-        String sql = "INSERT INTO [ChiTietDonHang] VALUES(?,?,?,?)";
+        Statement stm = conn.createStatement();
+        String sql = "INSERT INTO [ChiTietDonHang] VALUES(" + CTDH.getMaHang() + "," + CTDH.getSLNhap() + "," + CTDH.getMaDon() + ")";
         boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, CTDH.getId());
-            stm.setInt(2, CTDH.getMaHang());
-            stm.setInt(3, CTDH.getSLNhap());
-            stm.setInt(4, CTDH.getMaDon());
-            is = stm.executeUpdate() > 0;
-        }
+        is = stm.executeUpdate(sql) > 0;
         dbconn.Close();
         return is;
     }
 
     public boolean update(ChiTietDonHang CTDH) throws SQLException {
-        String sql = "UPDATE [ChiTietDonHang] SET id = ? , ma_hang = ? , soluong_nhap = ? , ma_don = ? ";
+        Statement stm = conn.createStatement();
+        String sql = "UPDATE [ChiTietDonHang] SET ma_hang = " + CTDH.getMaHang() + " , soluong_nhap = " + CTDH.getSLNhap() + " ,"
+                + " ma_don = " + CTDH.getMaDon() + " where id = " + CTDH.getId();
         boolean is;
-        try (PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, CTDH.getId());
-            stm.setInt(2, CTDH.getMaHang());
-            stm.setInt(3, CTDH.getSLNhap());
-            stm.setInt(4, CTDH.getMaDon());
-            is = stm.executeUpdate() > 0;
-        }
+        is = stm.executeUpdate(sql) > 0;
         dbconn.Close();
         return is;
     }
@@ -88,5 +80,21 @@ public class ChiTietDonHangRepository {
             ctdh.setMaDon(rs.getInt("ma_don"));
         }
         return ctdh;
+    }
+
+    public ArrayList<ChiTietDonHang> getbyMaDonHang(int madon) throws SQLException {
+
+        String sql = "Select * from [ChiTietDonHang] where ma_don = " + madon;
+        ChiTietDonHang CTDH = new ChiTietDonHang();
+        ResultSet rs = dbconn.getData(sql);
+        ArrayList<ChiTietDonHang> result = new ArrayList<>();
+        while (rs.next()) {
+            CTDH.setId(rs.getInt("id"));
+            CTDH.setMaHang(rs.getInt("ma_hang"));
+            CTDH.setSLNhap(rs.getInt("soluong_nhap"));
+            CTDH.setMaDon(rs.getInt("ma_don"));
+            result.add(CTDH);
+        }
+        return result;
     }
 }

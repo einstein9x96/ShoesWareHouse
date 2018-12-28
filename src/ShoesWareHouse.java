@@ -11,12 +11,14 @@ public class ShoesWareHouse {
         DataConnection dataconn = new DataConnection();
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
+        String user;
+        String pass;
         do {
             System.out.println("--------Login--------");
             System.out.print("Username : ");
-            String user = sc.nextLine();
+            user = sc.nextLine();
             System.out.print("Password : ");
-            String pass = sc.nextLine();
+            pass = sc.nextLine();
             LoginApp log = new LoginApp();
             String result = log.login(user, pass);
             Menu menu = new Menu();
@@ -26,7 +28,7 @@ public class ShoesWareHouse {
                     menu.getMenu(ad.getAdmin(user, pass));
                     break;
                 case "thukho":
-                    System.out.println("hello admin");
+                    menu.getMenu(ad.getAdmin(user, pass));
                     break;
                 default:
                     System.out.println(result);

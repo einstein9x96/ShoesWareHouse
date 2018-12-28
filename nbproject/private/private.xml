@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Controller/CategoriesController.java</file>
             <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Controller/StockController.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Model/Kho.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Controller/UserController.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Repository/HangHoaRepository.java</file>
+            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Controller/OrdersController.java</file>
             <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/ShoesWareHouse.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Controller/GroupGoodsController.java</file>
             <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Menu.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Repository/AdminRepository.java</file>
-            <file>file:/C:/Users/einst/OneDrive/Documents/NetBeansProjects/EProject/ShoesWareHouse/src/Repository/NhomHangRepository.java</file>
         </group>
     </open-files>
 </project-private>
