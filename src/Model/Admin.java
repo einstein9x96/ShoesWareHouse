@@ -48,7 +48,7 @@ public class Admin {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
     public int getMaKho() {
         return ma_kho;
     }
@@ -64,7 +64,9 @@ public class Admin {
         } else {
             role = "Thu kho";
         }
-        System.out.println("------------------------");
+
+        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ten nguoi dung", "Tai khoan", "Quyen");
+        System.out.printf("%-20s%-20s%-20s%-20s\n", this.ten, "Ten nguoi dung", "Tai khoan", "Quyen");
         System.out.println("Ten nguoi dung: " + this.ten);
         System.out.println("Tai khoan: " + this.user_name);
         System.out.println("Mat khau: " + this.password);

@@ -177,6 +177,11 @@ public class CategoriesController {
                 try {
                     ma_nhom = Integer.parseInt(scanner.nextLine());
                     test = false;
+                    NhomHang checkexist= _nhomhangRepository.getbyId(ma_nhom);
+                    if(checkexist==null){
+                        System.out.println("Vui long chon ma nhom hang co trong danh sach");
+                        test = true;
+                    }
                 } catch (NumberFormatException ex) {
                     System.out.println("Vui long nhap ma chinh xac");
                 }

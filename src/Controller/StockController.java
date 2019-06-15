@@ -2,7 +2,9 @@ package Controller;
 
 import DataConnect.DataConnection;
 import Model.Admin;
+import Model.ChiTietKho;
 import Model.Kho;
+import Repository.ChiTietKhoRepository;
 import Repository.KhoRepository;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class StockController {
 //                    dataconn.Close();
                     break;
                 default:
-                    System.out.print("Lua chon khong ton tai, vui long nhap lai: ");
+                    System.out.println("Lua chon khong ton tai, vui long nhap lai ");
                     break;
             }
         } while (!quit);
@@ -108,19 +110,26 @@ public class StockController {
     public void Stocklist() throws SQLException {
         DataConnection dataconn = new DataConnection();
         KhoRepository _khoRepository = new KhoRepository(dataconn);
+        ChiTietKhoRepository _ctk = new ChiTietKhoRepository(dataconn);
         ArrayList<Kho> stockList = _khoRepository.getAll();
 
         displayList(stockList);
         System.out.println("ban co muon xem chi tiet kho(y/n)");
         String check = scanner.nextLine();
         if (check.equalsIgnoreCase("y")) {
-            System.out.println("Nhap ma kho ban muon xem chi tiet : ");
+            
             int makhochitiet=0;
             boolean test = true;
             do {
                 try {
+                    System.out.println("Nhap ma kho ban muon xem chi tiet : ");
                     makhochitiet = Integer.parseInt(scanner.nextLine());
                     test = false;
+                    Kho c = _khoRepository.getbyId(makhochitiet);
+                    if(c.getTenKho()==null){
+                        System.out.println("Vui long chon cac ma kho co trong danh sach");
+                        test=true;
+                    }
                 } catch (NumberFormatException ex) {
                     System.out.println("Vui long nhap ma kho chinh xac");
                 }

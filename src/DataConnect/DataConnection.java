@@ -19,7 +19,7 @@ public class DataConnection {
             Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            String connectionURL = "jdbc:sqlserver://localhost\\DESKTOP-2VGIKBP\\SQLEXPRESS:1433;databaseName=quanlykho";
+            String connectionURL = "jdbc:sqlserver://localhost\\DESKTOP-CQKDFJ9\\SQLEXPRESS:1433;databaseName=quanlykho";
             connection = DriverManager.getConnection(connectionURL, "sa", "123456");
         } catch (SQLException ex) {
             Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);

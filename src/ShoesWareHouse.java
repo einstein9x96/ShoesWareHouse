@@ -14,10 +14,10 @@ public class ShoesWareHouse {
         String user;
         String pass;
         do {
-            System.out.println("--------Login--------");
-            System.out.print("Username : ");
+            System.out.println("--------Dang nhap--------");
+            System.out.print("Ten tai khoan : ");
             user = sc.nextLine();
-            System.out.print("Password : ");
+            System.out.print("Mat khau : ");
             pass = sc.nextLine();
             LoginApp log = new LoginApp();
             String result = log.login(user, pass);

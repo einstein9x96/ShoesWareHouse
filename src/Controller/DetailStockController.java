@@ -163,7 +163,7 @@ public class DetailStockController {
                 mahang = Integer.parseInt(scanner.nextLine());
                 validSelectGoods = 0;
                 HangHoa nhcheck = _hanghoaRepository.getbyId(mahang);
-                if (nhcheck == null) {
+                if (nhcheck==null) {
                     System.out.print("Vui long chon ma hang co trong danh sach");
                     validSelectGoods = 1;
                 }

@@ -83,9 +83,12 @@ public class UserController {
             System.out.print("Hien tai chua co nguoi dung nao");
         } else {
             System.out.println("Danh sach nguoi dung : ");
-            adList.forEach((user) -> {
-                user.displayInfo();
-            });
+            System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ten nguoi dung", "Tai khoan", "Quyen");
+            int count = 1;
+            for(Admin u : adList) {
+                System.out.printf("%-20s%-20s%-20s%-20s\n", count, u.getTen(), u.getUserName(), u.getRole());
+                count++;
+            };
         }
     }
 
