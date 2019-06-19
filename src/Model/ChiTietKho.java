@@ -3,7 +3,6 @@ package Model;
 public class ChiTietKho {
 
     private int id;
-    private int ma_kho;
     private int ma_hang;
     private int so_luong;
 
@@ -13,14 +12,6 @@ public class ChiTietKho {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getMaKho() {
-        return ma_kho;
-    }
-
-    public void setMakho(int makho) {
-        this.ma_kho = makho;
     }
 
     public int getMaHang() {
@@ -41,7 +32,6 @@ public class ChiTietKho {
 
     public ChiTietKho(int id, int ma_kho, int ma_hang, int so_luong) {
         this.id = id;
-        this.ma_kho = ma_kho;
         this.ma_hang = ma_hang;
         this.so_luong = so_luong;
     }

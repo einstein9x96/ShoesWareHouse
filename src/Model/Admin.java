@@ -7,7 +7,6 @@ public class Admin {
     private String user_name;
     private String password;
     private String role;
-    private int ma_kho;
 
     public int getId() {
         return id;
@@ -49,13 +48,6 @@ public class Admin {
         this.role = role;
     }
 
-    public int getMaKho() {
-        return ma_kho;
-    }
-
-    public void setMaKho(int makho) {
-        this.ma_kho = makho;
-    }
 
     public void displayInfo() {
         String role;

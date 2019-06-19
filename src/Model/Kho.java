@@ -2,40 +2,49 @@ package Model;
 
 public class Kho {
 
-    private int ma_kho;
-    private String ten_kho;
-    private String dia_diem;
+    private int ma_hang;
+    private int so_luong;
+    private String ten_hang;
+    private String dvt;
 
-    public int getMaKho() {
-        return ma_kho;
-    }
-
-    public void setMaKho(int makho) {
-        this.ma_kho = makho;
+    public int getMaHang() {
+        return ma_hang;
     }
 
-    public String getTenKho() {
-        return ten_kho;
+    public void setMaHang(int mahang) {
+        this.ma_hang = mahang;
     }
 
-    public void setTenKho(String tenkho) {
-        this.ten_kho = tenkho;
+    public int getSoLuong() {
+        return so_luong;
     }
 
-    public String getDiaDiem() {
-        return dia_diem;
+    public void setMaNhom(int soluong) {
+        this.so_luong = soluong;
     }
 
-    public void setDiaDiem(String diadiem) {
-        this.dia_diem = diadiem;
+    public String getTenHang() {
+        return ten_hang;
     }
-    public Kho(int makho, String tenkho, String diadiem) {
-        this.ma_kho = makho;
-        this.ten_kho = tenkho;
-        this.dia_diem = diadiem;
+
+    public void setTenHang(String ten) {
+        this.ten_hang = ten;
     }
-    public Kho(){
+
+    public String getDVT() {
+        return dvt;
+    }
+
+    public void setDVT(String dvt) {
+        this.dvt = dvt;
+    }
+    public Kho (){
         
     }
-    
+    public Kho (int mahang, int soluong, String tenhang, String dvt){
+        this.ma_hang = mahang;
+        this.so_luong = soluong;
+        this.ten_hang = tenhang;
+        this.dvt = dvt;
+    }
 }

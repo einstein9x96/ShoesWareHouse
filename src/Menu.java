@@ -1,10 +1,10 @@
 
 import Controller.CategoriesController;
-import Controller.GroupGoodsController;
 import Controller.OrdersController;
-import Controller.StockController;
 import Controller.UserController;
+import DataConnect.DataConnection;
 import Model.Admin;
+import Repository.ChiTietKhoRepository;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -13,12 +13,16 @@ public class Menu {
     public void saMenu() {
         System.out.println("1. Quan ly thu kho");
         System.out.println("2. Quan ly kho");
-        System.out.println("3. Quan ly hang hoa");
-        System.out.println("4. Quan ly nhom hang");
-        System.out.println("5. Quan ly don hang");
+        System.out.println("3. Quan ly don hang");
+        System.out.println("4. Xem chi tiet kho");
         System.out.println("0. Dang xuat");
     }
-
+    public void thukhoMenu() {
+        System.out.println("1. Quan ly kho");
+        System.out.println("2. Quan ly don hang");
+        System.out.println("3. Xem chi tiet kho");
+        System.out.println("0. Dang xuat");
+    }
     public void getMenu(Admin user) throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("--------- Quan ly kho hang ---------");
@@ -30,28 +34,24 @@ public class Menu {
                 saMenu();
                 System.out.println("Vui long chon 1 chuc nang: ");
                 choice = Integer.parseInt(sc.nextLine());
-
                 switch (choice) {
                     case 1:
                         UserController userController = new UserController();
                         userController.main();
                         break;
                     case 2:
-                        StockController st = new StockController();
-                        st.main(user);
-                        break;
-                    case 3:
-                        CategoriesController category = new CategoriesController();
+                         CategoriesController category = new CategoriesController();
                         category.main();
                         break;
-                    case 4:
-                        GroupGoodsController group = new GroupGoodsController();
-                        group.main();
-                        break;
-                    case 5:
-                        OrdersController order = new OrdersController();
+                    case 3:
+                         OrdersController order = new OrdersController();
                         order.main(user);
                         break;
+                    case 4:
+                        CategoriesController hh = new CategoriesController();
+                        hh.Goodslist();
+                        sc.nextLine();
+                       break;
                     case 0:
                         System.out.println("Dang xuat thanh cong");
                         logout = true;
@@ -68,23 +68,19 @@ public class Menu {
                 thukhoMenu();
                 System.out.println("Vui long chon 1 chuc nang: ");
                 choice = Integer.parseInt(sc.nextLine());
-
                 switch (choice) {
                     case 1:
                         CategoriesController category = new CategoriesController();
                         category.main();
                         break;
                     case 2:
-                        GroupGoodsController group = new GroupGoodsController();
-                        group.main();
-                        break;
-                    case 3:
                         OrdersController order = new OrdersController();
                         order.main(user);
                         break;
-//                    case 4:
-//                        
-//                        break;
+                    case 3:
+                        CategoriesController hh = new CategoriesController();
+                        hh.Goodslist();
+                        sc.nextLine();
                     case 0:
                         System.out.println("Dang xuat thanh cong");
                         logout = true;
@@ -96,13 +92,5 @@ public class Menu {
             } while (!logout);
 
         }
-    }
-
-    public void thukhoMenu() {
-        System.out.println("1. Quan ly hang hoa");
-        System.out.println("2. Quan ly nhom hang");
-        System.out.println("3. Quan ly don hang");
-//        System.out.println("4. Xem chi tiet kho");
-        System.out.println("0. Dang xuat");
     }
 }

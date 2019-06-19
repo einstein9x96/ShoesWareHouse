@@ -7,7 +7,7 @@ import Model.DonHang;
 import Repository.AdminRepository;
 import Repository.ChiTietDonHangRepository;
 import Repository.DonHangRepository;
-import Repository.HangHoaRepository;
+import Repository.KhoRepository;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,7 +108,7 @@ public class OrdersController {
 
     public void displayDetailList(ArrayList<ChiTietDonHang> list) {
         DataConnection dataconn = new DataConnection();
-        HangHoaRepository hhRepository = new HangHoaRepository(dataconn);
+        KhoRepository hhRepository = new KhoRepository(dataconn);
         list.forEach((detail) -> {
             try {
                 String loaihang = hhRepository.getbyId(detail.getMaHang()).getTenHang();
