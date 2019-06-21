@@ -27,7 +27,7 @@ public class KhoRepository {
         while (rs.next()) {
             Kho HH = new Kho();
             HH.setMaHang(rs.getInt("ma_hang"));
-            HH.setMaNhom(rs.getInt("so_luong"));
+            HH.setSoLuong(rs.getInt("so_luong"));
             HH.setTenHang(rs.getString("ten_hang"));
             HH.setDVT(rs.getString("dvt"));
             listHH.add(HH);
@@ -70,7 +70,7 @@ public class KhoRepository {
         ResultSet rs = dbconn.getData(sql);
         while (rs.next()) {
             HH.setMaHang(rs.getInt("ma_hang"));
-            HH.setMaNhom(rs.getInt("so_luong"));
+            HH.setSoLuong(rs.getInt("so_luong"));
             HH.setTenHang(rs.getString("ten_hang"));
             HH.setDVT(rs.getString("dvt"));
         }

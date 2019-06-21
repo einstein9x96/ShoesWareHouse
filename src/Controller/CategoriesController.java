@@ -67,7 +67,7 @@ public class CategoriesController {
     }
 
     public void displayName() {
-        System.out.printf("%-20s%-20s%-20s%-20s\n", "STT", "Ten hang", "So luong", "Don vi tinh");
+        System.out.printf("%-20s%-20s%-20s%-20s\n", "So luong", "Ten hang", "Ma hang", "Don vi tinh");
     }
 
     public void displayList(ArrayList<Kho> list) {

@@ -19,7 +19,7 @@ public class Kho {
         return so_luong;
     }
 
-    public void setMaNhom(int soluong) {
+    public void setSoLuong(int soluong) {
         this.so_luong = soluong;
     }
 

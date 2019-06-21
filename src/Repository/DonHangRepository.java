@@ -3,7 +3,6 @@ package Repository;
 import DataConnect.DataConnection;
 import Model.DonHang;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,14 +37,26 @@ public class DonHangRepository {
         return listDH;
     }
 
-    public boolean insert(DonHang DH) throws SQLException {
-        Statement stm = conn.createStatement();
-        String sql = "INSERT INTO [DonHang] (ma_thukho, ngay_nhap, loai_phieu) VALUES"
-                + "("+ DH.getMaThuKho() +",'"+ DH.getNgayNhap() +"',"+ DH.getLoaiPhieu() +")";
-        boolean is;
-        is = stm.executeUpdate(sql) > 0;
-        dbconn.Close();
-        return is;
+    public int insert(DonHang DH) throws SQLException {
+//        Statement stm = conn.createStatement();
+//        String sql = "INSERT INTO [DonHang] (ma_thukho, ngay_nhap, loai_phieu) VALUES"
+//                + "("+ DH.getMaThuKho() +",'"+ DH.getNgayNhap() +"',"+ DH.getLoaiPhieu() +")";
+//        boolean is;
+//        is = stm.executeUpdate(sql) > 0;
+//        dbconn.Close();
+//        return is;
+        String sql = "INSERT INTO [DonHang] (ma_thukho, ngay_nhap, loai_phieu) VALUES (?,?,?)";
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, DH.getMaThuKho());
+        preparedStatement.setString(2, DH.getNgayNhap());
+        preparedStatement.setInt(3, DH.getLoaiPhieu());
+        preparedStatement.executeUpdate();
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        int id = 0;
+        if (generatedKeys.next()) {
+            id = generatedKeys.getInt(1);
+        }
+        return id;
     }
 
     public boolean update(DonHang DH) throws SQLException {

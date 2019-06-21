@@ -40,11 +40,11 @@ public class Menu {
                         userController.main();
                         break;
                     case 2:
-                         CategoriesController category = new CategoriesController();
+                        CategoriesController category = new CategoriesController();
                         category.main();
                         break;
                     case 3:
-                         OrdersController order = new OrdersController();
+                        OrdersController order = new OrdersController();
                         order.main(user);
                         break;
                     case 4:
